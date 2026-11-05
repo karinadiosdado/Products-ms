@@ -9,7 +9,11 @@ async function bootstrap() {
   //const app = await NestFactory.create(AppModule);
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
+<<<<<<< HEAD
     { transport: Transport.TCP, options: { host: '0.0.0.0', port: envs.port } },
+=======
+    { transport: Transport.TCP, options: { port: envs.port } },
+>>>>>>> maestra/validateProducts
   );
   app.enableShutdownHooks();
   app.useGlobalPipes(

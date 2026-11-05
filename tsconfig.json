@@ -1,22 +1,41 @@
 {
   "compilerOptions": {
+<<<<<<< HEAD
     "module": "commonjs",
     "esModuleInterop": true,
+=======
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "resolvePackageJsonExports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+>>>>>>> maestra/validateProducts
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
+<<<<<<< HEAD
     "target": "ES2021",
+=======
+    "target": "ES2023",
+>>>>>>> maestra/validateProducts
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
+<<<<<<< HEAD
     "strictNullChecks": false,
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
+=======
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+>>>>>>> maestra/validateProducts
     "noFallthroughCasesInSwitch": false
   }
 }

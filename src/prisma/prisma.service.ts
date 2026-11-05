@@ -6,7 +6,11 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3';
+<<<<<<< HEAD
 import { PrismaClient } from '../generated/prisma/client';
+=======
+import { PrismaClient } from '../generated/prisma/client.js';
+>>>>>>> maestra/validateProducts
 
 @Injectable()
 export class PrismaService
