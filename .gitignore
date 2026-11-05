@@ -56,11 +56,7 @@ pids
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 /src/generated/prisma
-<<<<<<< HEAD
-=======
-
-#agentes
-.agents/
-.claude/
-.windsurf/
->>>>>>> maestra/validateProducts
+# Archivos JavaScript generados junto a TypeScript
+/src/**/*.js
+/src/**/*.js.map
+/prisma7.config.js

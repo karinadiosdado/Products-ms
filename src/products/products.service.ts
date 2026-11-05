@@ -1,28 +1,17 @@
-<<<<<<< HEAD
-import { Injectable, NotFoundException } from '@nestjs/common';
-=======
 import { HttpStatus, Injectable } from '@nestjs/common';
->>>>>>> maestra/validateProducts
+import { RpcException } from '@nestjs/microservices';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { PaginationDto } from '../common/dto/pagination.dto';
-<<<<<<< HEAD
-=======
-import { RpcException } from '@nestjs/microservices';
->>>>>>> maestra/validateProducts
 
 @Injectable()
 export class ProductsService {
   constructor(private prisma: PrismaService) {}
+
   async create(createProductDto: CreateProductDto) {
     console.log({ createProductDto });
-<<<<<<< HEAD
-    const product = await this.prisma.product.create({
-      data: createProductDto,
-    });
-    return product;
-=======
+
     try {
       const product = await this.prisma.product.create({
         data: createProductDto,
@@ -31,38 +20,23 @@ export class ProductsService {
     } catch (error) {
       throw new RpcException({
         status: HttpStatus.BAD_GATEWAY,
-        message: `Error query`,
+        message: 'Error query',
       });
     }
->>>>>>> maestra/validateProducts
   }
 
   async findAll(paginationDto: PaginationDto) {
-    //return this.prisma.product.findMany({});
     const { page, limit } = paginationDto;
-<<<<<<< HEAD
-    const totalPages = await this.prisma.product.count();
-    /* const totalPages = await this.prisma.product.count({
-      where: { available: true },
-    }); */
-=======
-    //const totalPages = await this.prisma.product.count();
+
     const totalPages = await this.prisma.product.count({
       where: { available: true },
     });
->>>>>>> maestra/validateProducts
+
     const lastPage = Math.ceil(totalPages / limit);
-    /*return this.prisma.product.findMany({
-      skip: (page - 1) * limit,
-      take: limit,
-    });*/
+
     return {
       data: await this.prisma.product.findMany({
-<<<<<<< HEAD
-        //where: { available: true },
-=======
         where: { available: true },
->>>>>>> maestra/validateProducts
         skip: (page - 1) * limit,
         take: limit,
       }),
@@ -76,39 +50,24 @@ export class ProductsService {
 
   async findOne(id: number) {
     const product = await this.prisma.product.findFirst({
-<<<<<<< HEAD
-      where: { id: id },
-      //where: { id, available: true },
-    });
-    if (!product) {
-      throw new NotFoundException(`Product with id #${id} not found`);
-    }
-    return product;
-    /* const product = await this.prisma.product.findFirstOrThrow({
-      where: { id: id },
-    });
-    return product; */
-=======
-      //where: { id: id },
       where: { id, available: true },
     });
+
     if (!product) {
       throw new RpcException({
         message: `Product with id #${id} not found`,
         status: HttpStatus.BAD_REQUEST,
       });
     }
+
     return product;
->>>>>>> maestra/validateProducts
   }
 
   async update(id: number, updateProductDto: UpdateProductDto) {
     const { id: ___, ...data } = updateProductDto;
+
     await this.findOne(id);
-    /* return this.prisma.product.update({
-      where: { id: id },
-      data: updateProductDto,
-    }); */
+
     return this.prisma.product.update({
       where: { id: id },
       data: data,
@@ -117,27 +76,25 @@ export class ProductsService {
 
   async remove(id: number) {
     await this.findOne(id);
-    //Hard delete, no usarlo, porque perderiamos la integridad referencial
-    /*return this.prisma.product.delete({
-      where: { id },
-    }); */
-    //soft delete
+
+    // Soft delete
     const product = await this.prisma.product.update({
       where: { id },
       data: {
         available: false,
       },
     });
+
     return {
       status: 200,
       msg: 'Product deleted successfully',
       product: product,
     };
   }
-<<<<<<< HEAD
-=======
+
   async validateProducts(ids: number[]) {
     ids = Array.from(new Set(ids));
+
     const products = await this.prisma.product.findMany({
       where: {
         id: {
@@ -145,13 +102,14 @@ export class ProductsService {
         },
       },
     });
+
     if (products.length != ids.length) {
       throw new RpcException({
-        message: `Some products were not found`,
+        message: 'Some products were not found',
         status: HttpStatus.BAD_REQUEST,
       });
     }
+
     return products;
   }
->>>>>>> maestra/validateProducts
 }
